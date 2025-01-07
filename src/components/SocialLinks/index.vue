@@ -3,8 +3,8 @@
   <div class="social">
     <div class="link">
       <a
-        id="github"
-        :href="socialLinks.github"
+        id="bilibili"
+        :href="socialLinks.bilibili"
         target="_blank"
         @mouseenter="changeTip"
         @mouseleave="leaveTip"
@@ -71,7 +71,7 @@ import { Icon } from "@vicons/utils";
 let socialHover = ref(false);
 let socialTip = ref("通过这里联系我吧");
 let socialTipData = {
-  github: "去 Bilibili 看看",
+  bilibili: "去 Bilibili 看看",
   qq: "有什么事吗",
   email: "来封 Email",
   telegram: "你懂的 ~",
@@ -80,7 +80,7 @@ let socialTipData = {
 
 // 社交链接地址
 const socialLinks = reactive({
-  github: "https://b23.tv/40Tew8z",
+  bilibili: "https://space.bilibili.com/88711789",
   qq:
     "https://qm.qq.com/cgi-bin/qm/qr?k=M2BsEYmUQyVFyKJYHknxHgxFFOs_rt24&noverify=0&personal_qrcode_source=3",
   email: "mailto:" + import.meta.env.VITE_SOCIAL_EMAIL,
@@ -92,8 +92,8 @@ const socialLinks = reactive({
 const changeTip = (e) => {
   let tipKey = e.target.id;
   switch (tipKey) {
-    case "github":
-      socialTip.value = socialTipData.github;
+    case "bilibili":
+      socialTip.value = socialTipData.bilibili;
       return true;
     case "qq":
       socialTip.value = socialTipData.qq;
