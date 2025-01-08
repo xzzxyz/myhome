@@ -2,7 +2,10 @@
 	<footer>
 		<div class="power" v-show="!store.playerState">
 			<!-- 站点备案 -->
-			<a href="https://beian.miit.gov.cn" target="_blank">
+			<div class="start">
+				{{ dayjs('23/1/16').format('YYYY/MM/DD') }}
+			</div>
+			<a href="https://beian.miit.gov.cn" target="_blank" style="line-height: 125%;">
 				© {{ new Date().getFullYear() }} 陇ICP备2024012599号
 			</a>
 			<!-- 以下信息请不要修改哦 -->
@@ -31,6 +34,8 @@ import {
 	mainStore
 } from "@/store";
 import config from "@/../package.json";
+import { dayjs } from 'element-plus'
+
 const store = mainStore();
 </script>
 
@@ -62,6 +67,12 @@ footer {
 	.power {
 		animation: fade;
 		-webkit-animation: fade 0.3s;
+
+		.start {
+			font-size: 0.75rem;
+			line-height: .625rem;
+			padding: .3125rem 0;
+		}
 	}
 
 	.lrc {
