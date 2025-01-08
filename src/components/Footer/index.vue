@@ -3,7 +3,8 @@
 		<div class="power" v-show="!store.playerState" style="line-height: 125%;">
 			<!-- 站点备案 -->
 			<div class="start">
-				{{ dayjs('23/1/16').format('YYYY/MM/DD') }}
+				{{ dayjs() }}
+				<!-- {{ dayjs('23/1/16').format('YYYY/MM/DD') }} -->
 			</div>
 			<a href="https://beian.miit.gov.cn" target="_blank">
 				© {{ new Date().getFullYear() }} 陇ICP备2024012599号
@@ -35,8 +36,6 @@ import {
 } from "@/store";
 import config from "@/../package.json";
 import dayjs from 'dayjs'
-console.log('👩‍🚀', dayjs)
-
 const store = mainStore();
 </script>
 
