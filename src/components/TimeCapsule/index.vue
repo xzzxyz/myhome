@@ -4,14 +4,10 @@
       <hourglass-full theme="two-tone" size="24" :fill="['#efefef', '#00000020']" />
       <span>时光胶囊</span>
     </div>
-    <span class="text">今日已经度过了&nbsp;{{ timeData.day.elapsed }}&nbsp;小时</span>
-    <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.day.pass" />
-    <span class="text">本周已经度过了&nbsp;{{ timeData.week.elapsed }}&nbsp;天</span>
-    <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.week.pass" />
-    <span class="text">本月已经度过了&nbsp;{{ timeData.month.elapsed }}&nbsp;天</span>
-    <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.month.pass" />
-    <span class="text">今年已经度过了&nbsp;{{ timeData.year.elapsed }}&nbsp;个月</span>
-    <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.year.pass" />
+    <template v-for="i in timeDatas">
+      <span class="text">{{ i.s1 }}已经度过了&nbsp;{{ timeData[i.type].elapsed }}&nbsp;{{ i.s2 }}</span>
+      <el-progress :text-inside="true" :stroke-width="20" :percentage="parseFloat(timeData[i.type].pass)" />
+    </template>
     <!-- <span class="text"
       >今日已经度过了&nbsp;{{ timeData.day.start }}&nbsp;小时</span
     >
@@ -51,7 +47,28 @@
 import { onMounted, onBeforeUnmount, ref } from "vue";
 import { HourglassFull } from "@icon-park/vue-next";
 import { getTimeCapsule } from "@/utils/getTime.js";
-
+const timeDatas = [
+  {
+    type: "day",
+    s1: "今日",
+    s2: "小时",
+  },
+  {
+    type: "week",
+    s1: "本周",
+    s2: "天",
+  },
+  {
+    type: "month",
+    s1: "本月",
+    s2: "天",
+  },
+  {
+    type: "year",
+    s1: "今年",
+    s2: "个月",
+  },
+];
 // 进度条数据
 let timeData = ref(getTimeCapsule());
 let timeInterval = null;
