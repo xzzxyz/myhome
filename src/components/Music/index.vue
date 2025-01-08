@@ -150,7 +150,8 @@ onMounted(() => {
     }
   });
 
-  
+
+  console.log('🧛‍♀️', store)
   if (!store.playerState) {
     setTimeout(() => {
       playerRef.value.playToggle();
