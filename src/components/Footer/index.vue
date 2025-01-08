@@ -3,7 +3,7 @@
 		<div class="power" v-show="!store.playerState" style="line-height: 125%;">
 			<!-- 站点备案 -->
 			<div class="start">
-				{{ siteDateStatistics }}
+				{{ siteDateStatistics(new Date('2023/1/16')) }}
 				<!-- 本站已勉强运行 {{ diffDays }} 天 -->
 			</div>
 			<a href="https://beian.miit.gov.cn" target="_blank">
