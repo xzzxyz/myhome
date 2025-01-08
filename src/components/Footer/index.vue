@@ -3,8 +3,7 @@
 		<div class="power" v-show="!store.playerState" style="line-height: 125%;">
 			<!-- 站点备案 -->
 			<div class="start">
-				{{ dayjs() }}
-				<!-- {{ dayjs('23/1/16').format('YYYY/MM/DD') }} -->
+				本站已勉强运行 {{ diffDays }} 天
 			</div>
 			<a href="https://beian.miit.gov.cn" target="_blank">
 				© {{ new Date().getFullYear() }} 陇ICP备2024012599号
@@ -35,7 +34,17 @@ import {
 	mainStore
 } from "@/store";
 import config from "@/../package.json";
-import dayjs from 'dayjs'
+const time = new Date(new Date() - new Date('2023/1/16'))
+var days = 1000 * 60 * 60 * 24;
+// var years = days * 365;
+var today = new Date();
+var todayYear = today.getFullYear();
+var todayMonth = today.getMonth() + 1;
+var todayDate = today.getDate();
+var t1 = Date.UTC(2023, 1, 16);
+var t2 = Date.UTC(todayYear, todayMonth, todayDate);
+var diff = t2 - t1;
+var diffDays = Math.floor((diff / days));
 const store = mainStore();
 </script>
 
