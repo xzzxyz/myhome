@@ -178,15 +178,15 @@ export const siteDateStatistics = (startDate) => {
   const differenceInDays = differenceInTime / (1000 * 3600 * 24);
   const differenceInMonths = differenceInDays / 30;
   const differenceInYears = differenceInMonths / 12;
+  let str = "本站已经苟活了 ";
   if (differenceInYears >= 1) {
-    return `本站已经苟活了 ${Math.floor(differenceInYears)} 年 ${Math.floor(
-      differenceInMonths % 12
-    )} 月 ${Math.round(differenceInDays % 30)} 天`;
-  } else if (differenceInMonths >= 1) {
-    return `本站已经苟活了 ${Math.floor(differenceInMonths)} 月 ${Math.round(
-      differenceInDays % 30
-    )} 天`;
-  } else {
-    return `本站已经苟活了 ${Math.round(differenceInDays)} 天`;
+    str += Math.floor(differenceInYears) + " 年 ";
   }
+  if (differenceInMonths % 12 >= 1) {
+    str += Math.floor(differenceInMonths % 12) + " 月 ";
+  }
+  if (differenceInDays % 30 >= 1) {
+    str += Math.floor(differenceInDays % 30) + " 天";
+  }
+  return str;
 };
