@@ -101,19 +101,19 @@ export const getTimeCapsule = () => {
   return {
     day: {
       elapsed: Math.floor(todayPassHours),
-      pass: Math.floor(todayPassHoursPercent),
+      pass: todayPassHoursPercent,
     },
     week: {
       elapsed: weekDay,
-      pass: Math.floor(weekDayPassPercent),
+      pass: weekDayPassPercent,
     },
     month: {
       elapsed: date,
-      pass: Math.floor(monthPassPercent),
+      pass: monthPassPercent,
     },
     year: {
       elapsed: month - 1,
-      pass: Math.floor(yearPassPercent),
+      pass: yearPassPercent,
     },
   };
 };

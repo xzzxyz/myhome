@@ -8,38 +8,6 @@
       <span class="text">{{ i.s1 }}已经度过了&nbsp;{{ timeData[i.type].elapsed }}&nbsp;{{ i.s2 }}</span>
       <el-progress :text-inside="true" :stroke-width="20" :percentage="parseFloat(timeData[i.type].pass)" />
     </template>
-    <!-- <span class="text"
-      >今日已经度过了&nbsp;{{ timeData.day.start }}&nbsp;小时</span
-    >
-    <el-progress
-      :text-inside="true"
-      :stroke-width="20"
-      :percentage="timeData.day.pass"
-    />
-    <span class="text"
-      >本周已经度过了&nbsp;{{ timeData.week.start }}&nbsp;天</span
-    >
-    <el-progress
-      :text-inside="true"
-      :stroke-width="20"
-      :percentage="timeData.week.pass"
-    />
-    <span class="text"
-      >本月已经度过了&nbsp;{{ timeData.month.start }}&nbsp;天</span
-    >
-    <el-progress
-      :text-inside="true"
-      :stroke-width="20"
-      :percentage="timeData.month.pass"
-    />
-    <span class="text"
-      >今年已经度过了&nbsp;{{ timeData.year.start }}&nbsp;个月</span
-    >
-    <el-progress
-      :text-inside="true"
-      :stroke-width="20"
-      :percentage="timeData.year.pass"
-    /> -->
   </div>
 </template>
 
