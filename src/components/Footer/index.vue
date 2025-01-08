@@ -34,7 +34,7 @@ import {
 	mainStore
 } from "@/store";
 import config from "@/../package.json";
-import { dayjs } from 'element-plus'
+import dayjs from 'dayjs'
 console.log('👩‍🚀', dayjs)
 
 const store = mainStore();

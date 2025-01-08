@@ -14,7 +14,7 @@
         @click="store.boxOpenState = false"
       />
     </transition>
-    <transition name="el-fade-in-linear">
+    <!-- <transition name="el-fade-in-linear">
       <setting-two
         class="setting"
         theme="filled"
@@ -23,7 +23,7 @@
         v-show="closeShow"
         @click="store.setOpenState = true"
       />
-    </transition>
+    </transition> -->
     <div class="content">
       <TimeCapsule />
     </div>
