@@ -65,56 +65,16 @@ let linksData = [
     name: "起始页",
     link: "https://yuindex.xzzxyz.top",
   },
-  {
-    icon: Home,
-    name: "首页",
-    link: "https://home.xzzxyz.top",
-  },
-  {
-    icon: Flask,
-    name: "实验室",
-    link: "",
-  },
-  {
-    icon: Home,
-    name: "首页",
-    link: "https://home.xzzxyz.top",
-  },
-  {
-    icon: Flask,
-    name: "实验室",
-    link: "",
-  },
-  {
-    icon: Home,
-    name: "首页",
-    link: "https://home.xzzxyz.top",
-  },
-  {
-    icon: Flask,
-    name: "实验室",
-    link: "",
-  },
-  {
-    icon: Home,
-    name: "首页",
-    link: "https://home.xzzxyz.top",
-  },
-  {
-    icon: Flask,
-    name: "实验室",
-    link: "",
-  },
-  {
-    icon: Home,
-    name: "首页",
-    link: "https://home.xzzxyz.top",
-  },
-  {
-    icon: Flask,
-    name: "实验室",
-    link: "",
-  },
+  // {
+  //   icon: Home,
+  //   name: "首页",
+  //   link: "https://home.xzzxyz.top",
+  // },
+  // {
+  //   icon: Flask,
+  //   name: "实验室",
+  //   link: "",
+  // },
 ];
 
 // 链接跳转
