@@ -100,7 +100,7 @@ export const getTimeCapsule = () => {
 
   return {
     day: {
-      elapsed: Math.floor(todayPassHours),
+      elapsed: todayPassHours,
       pass: todayPassHoursPercent,
     },
     week: {
