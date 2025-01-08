@@ -6,7 +6,7 @@
     </div>
     <template v-for="i in timeDatas">
       <span class="text">{{ i.s1 }}已经度过了&nbsp;{{ timeData[i.type].elapsed }}&nbsp;{{ i.s2 }}</span>
-      <el-progress :text-inside="true" :stroke-width="20" :percentage="parseFloat(timeData[i.type].pass)" />
+      <el-progress :text-inside="true" :stroke-width="20" :percentage="parseFloat(timeData[i.type].pass.toFixed(2))" />
     </template>
   </div>
 </template>
