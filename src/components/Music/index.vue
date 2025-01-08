@@ -151,12 +151,11 @@ onMounted(() => {
   });
 
 
-  console.log('🧛‍♀️', store)
-  if (!store.playerState) {
+  // if (!store.playerState) {
     setTimeout(() => {
       playerRef.value.playToggle();
     }, 2500);
-  }
+  // }
 });
 
 // 监听音量变化
