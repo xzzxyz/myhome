@@ -1,9 +1,15 @@
 <template>
   <div :class="store.mobileOpenState ? 'right' : 'right hidden'">
     <!-- 移动端 Logo -->
-    <div class="logo" @click="store.mobileFuncState = !store.mobileFuncState">
+    <div class="logo">
       <span class="bg">{{ siteUrl[0] }}</span>
       <span class="sm">.{{ siteUrl[1] }}</span>
+      <div @click="store.mobileFuncState = !store.mobileFuncState">
+        <Icon size="26">
+          <Exchange />
+        </Icon>
+        切换
+      </div>
     </div>
     <!-- 功能区 -->
     <Func />
@@ -15,6 +21,7 @@
 <script setup>
 import { reactive, ref, onMounted } from "vue";
 import { mainStore } from "@/store";
+import { Exchange } from "@vicons/fa";
 import Func from "@/views/Func/index.vue";
 import Link from "@/components/Links/index.vue";
 const store = mainStore();
@@ -28,6 +35,7 @@ let siteUrl = import.meta.env.VITE_SITE_URL.split(".");
 .right {
   flex: 1 0 0%;
   margin-left: 0.75rem;
+
   .logo {
     font-family: "Pacifico-Regular";
     font-size: 1.75rem;
@@ -39,15 +47,19 @@ let siteUrl = import.meta.env.VITE_SITE_URL.split(".");
     transition: all 0.3s;
     animation: fade;
     -webkit-animation: fade 0.5s;
+
     &:active {
       transform: scale(0.95);
     }
+
     @media (min-width: 720px) {
       display: none;
     }
   }
+
   @media (max-width: 720px) {
     margin-left: 0;
+
     &.hidden {
       display: none;
     }
