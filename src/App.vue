@@ -6,9 +6,9 @@
         <section class="main" v-show="!store.setOpenState">
           <MainLeft />
           <MainRight v-show="!store.boxOpenState" />
-          <Box v-show="store.boxOpenState || store.mobileOpenState === 3" />
+          <Box v-show="store.boxOpenState" />
         </section>
-        <section class="more" v-show="store.setOpenState" @click="store.setOpenState = false">
+        <section class="more" v-show="store.setOpenState || store.mobileOpenState === 3" @click="store.setOpenState = false">
           <MoreSet />
         </section>
       </div>
