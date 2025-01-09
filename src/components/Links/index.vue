@@ -71,10 +71,7 @@ let linksData = [
 
 // 链接跳转
 const jumpLink = (url) => {
-  if (!url) return ElMessage({
-    // dangerouslyUseHTMLString: true,
-    message: `网站建设中~`,
-  });
+  if (!url) return ElMessage(`网站建设中~`);
   window.open(url, "_blank");
 };
 </script>
