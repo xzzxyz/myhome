@@ -7,8 +7,9 @@
           <MainLeft />
           <MainRight v-show="!store.boxOpenState" />
           <Box v-show="store.boxOpenState" />
+          <TimeCapsule v-show="store.mobileOpenState === 3" />
         </section>
-        <section class="more" v-show="store.setOpenState || store.mobileOpenState === 3" @click="store.setOpenState = false">
+        <section class="more" v-show="store.setOpenState" @click="store.setOpenState = false">
           <MoreSet />
         </section>
       </div>
@@ -27,6 +28,7 @@ import { helloInit, checkDays } from "@/utils/getTime.js";
 import { mainStore } from "@/store";
 import { Icon } from "@vicons/utils";
 import { HamburgerButton, CloseSmall, Right } from "@icon-park/vue-next";
+import TimeCapsule from "@/components/TimeCapsule/index.vue";
 import MainLeft from "@/views/Main/Left.vue";
 import MainRight from "@/views/Main/Right.vue";
 import Background from "@/components/Background/index.vue";
