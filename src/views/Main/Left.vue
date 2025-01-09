@@ -23,8 +23,11 @@ const store = mainStore();
   }
 
   @media (max-width: 720px) {
-    display: unset;
     margin-right: 0;
+  }
+
+  @media (min-width: 720px) {
+    display: unset !important;
   }
 }
 </style>
