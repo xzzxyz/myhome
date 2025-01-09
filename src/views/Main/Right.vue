@@ -6,7 +6,7 @@
       <span class="sm">.{{ siteUrl[1] }}</span>
       <div @click="store.mobileFuncState = !store.mobileFuncState">
         <Icon size="26">
-          <Exchange />
+          <ExchangeAlt />
         </Icon>
         切换
       </div>
@@ -21,7 +21,7 @@
 <script setup>
 import { reactive, ref, onMounted } from "vue";
 import { mainStore } from "@/store";
-import { Exchange } from "@vicons/fa";
+import { ExchangeAlt } from "@vicons/fa";
 import Func from "@/views/Func/index.vue";
 import Link from "@/components/Links/index.vue";
 const store = mainStore();
