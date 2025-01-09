@@ -8,7 +8,7 @@
     </div>
     <el-row class="link-all" :gutter="20">
       <el-col :span="8" v-for="(item, index) in linksData" :key="item" @click="jumpLink(item.link)">
-        <div class="item cards" :style="index > 3 ? 'margin-top: 20px' : null">
+        <div class="item cards" :style="index > 2 ? 'margin-top: 20px' : null">
           <Icon size="26">
             <component :is="item.icon" />
           </Icon>
@@ -67,16 +67,14 @@ let linksData = [
     name: "实验室",
     link: "",
   },
-  {
-    icon: Flask,
-    name: "实验室",
-    link: "",
-  },
 ];
 
 // 链接跳转
 const jumpLink = (url) => {
-  if (!url) return;
+  if (!url) return ElMessage({
+    // dangerouslyUseHTMLString: true,
+    message: `网站建设中~`,
+  });
   window.open(url, "_blank");
 };
 </script>
