@@ -1,18 +1,7 @@
 <template>
-  <div
-    class="box cards"
-    @mouseenter="closeShow = true"
-    @mouseleave="closeShow = false"
-  >
+  <div class="box cards" @mouseenter="closeShow = true" @mouseleave="closeShow = false">
     <transition name="el-fade-in-linear">
-      <close-one
-        class="close"
-        theme="filled"
-        size="28"
-        fill="#ffffff60"
-        v-show="closeShow"
-        @click="store.boxOpenState = false"
-      />
+      <close-one class="close" theme="filled" size="28" fill="#ffffff60" v-show="closeShow" @click="close" />
     </transition>
     <!-- <transition name="el-fade-in-linear">
       <setting-two
@@ -38,6 +27,13 @@ import { mainStore } from "@/store";
 const store = mainStore();
 
 let closeShow = ref(false);
+const close = () => {
+  if (store.getInnerWidth >= 990) {
+    store.boxOpenState = false
+  } else {
+    store.mobileFunc()
+  }
+}
 </script>
 
 <style lang="scss" scoped>

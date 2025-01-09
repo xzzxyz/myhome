@@ -13,7 +13,7 @@
         </section>
       </div>
       <!-- 移动端菜单按钮 -->
-      <Icon class="menu" size="24" @click="mobileFunc">
+      <Icon class="menu" size="24" @click="store.mobileFunc">
         <Right />
         <!-- <component :is="store.mobileOpenState ? CloseSmall : HamburgerButton" /> -->
       </Icon>
@@ -43,10 +43,7 @@ const getWidth = () => {
   store.setInnerWidth(window.innerWidth);
 };
 
-const mobileFunc = () => {
-  // store.mobileOpenState = !store.mobileOpenState
-  store.mobileOpenState = ++store.mobileOpenState % 3
-}
+
 
 
 onMounted(() => {
