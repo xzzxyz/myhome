@@ -4,12 +4,10 @@
     <div class="logo">
       <span class="bg">{{ siteUrl[0] }}</span>
       <span class="sm">.{{ siteUrl[1] }}</span>
-      <div @click="store.mobileFuncState = !store.mobileFuncState">
-        <!-- <span> -->
-        <Icon size="26">
-          <StackExchange />
+      <div class="switch" @click="store.mobileFuncState = !store.mobileFuncState">
+        <Icon size="16">
+          <ExchangeAlt />
         </Icon>
-        <!-- </span> -->
         切换
       </div>
     </div>
@@ -23,7 +21,7 @@
 <script setup>
 import { reactive, ref, onMounted } from "vue";
 import { mainStore } from "@/store";
-import { ExchangeAlt, StackExchange } from "@vicons/fa";
+import { ExchangeAlt } from "@vicons/fa";
 import { Icon } from "@vicons/utils";
 import Func from "@/views/Func/index.vue";
 import Link from "@/components/Links/index.vue";
@@ -50,6 +48,12 @@ let siteUrl = import.meta.env.VITE_SITE_URL.split(".");
     transition: all 0.3s;
     animation: fade;
     -webkit-animation: fade 0.5s;
+
+    .switch {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     &:active {
       transform: scale(0.95);
