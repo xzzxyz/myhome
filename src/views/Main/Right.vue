@@ -1,11 +1,11 @@
 <template>
-  <div :class="store.mobileOpenState ? 'right' : 'right hidden'">
+  <div :class="store.mobileOpenState === 1 ? 'right' : 'right hidden'">
     <!-- 移动端 Logo -->
     <div class="logo">
       <span class="bg">{{ siteUrl[0] }}</span>
       <span class="sm">.{{ siteUrl[1] }}</span>
       <div class="switch" @click="store.mobileFuncState = !store.mobileFuncState">
-        <Icon size="16">
+        <Icon>
           <ExchangeAlt />
         </Icon>
         切换
@@ -53,6 +53,8 @@ let siteUrl = import.meta.env.VITE_SITE_URL.split(".");
       display: flex;
       justify-content: center;
       align-items: center;
+      padding-top: 1rem;
+      font-size: 1rem;
     }
 
     &:active {

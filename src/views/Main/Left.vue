@@ -1,5 +1,5 @@
 <template>
-  <div :class="store.mobileOpenState ? 'left hidden' : 'left'">
+  <div :class="store.mobileOpenState !== 0 ? 'left hidden' : 'left'">
     <Message />
     <SocialLinks />
   </div>
@@ -17,9 +17,11 @@ const store = mainStore();
   flex: 1 0 0%;
   margin-right: 10px;
   transform: translateY(20px);
+
   &.hidden {
     display: none;
   }
+
   @media (max-width: 720px) {
     margin-right: 0;
   }

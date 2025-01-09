@@ -6,15 +6,16 @@
         <section class="main" v-show="!store.setOpenState">
           <MainLeft />
           <MainRight v-show="!store.boxOpenState" />
-          <Box v-show="store.boxOpenState" />
+          <Box v-show="store.boxOpenState || store.mobileOpenState === 3" />
         </section>
         <section class="more" v-show="store.setOpenState" @click="store.setOpenState = false">
           <MoreSet />
         </section>
       </div>
       <!-- 移动端菜单按钮 -->
-      <Icon class="menu" size="24" @click="store.mobileOpenState = !store.mobileOpenState">
-        <component :is="store.mobileOpenState ? CloseSmall : HamburgerButton" />
+      <Icon class="menu" size="24" @click="mobileFunc">
+        <Right />
+        <!-- <component :is="store.mobileOpenState ? CloseSmall : HamburgerButton" /> -->
       </Icon>
     </main>
     <Footer v-show="!store.backgroundShow && !store.setOpenState" />
@@ -25,7 +26,7 @@ import { onMounted, onBeforeUnmount, watch } from "vue";
 import { helloInit, checkDays } from "@/utils/getTime.js";
 import { mainStore } from "@/store";
 import { Icon } from "@vicons/utils";
-import { HamburgerButton, CloseSmall } from "@icon-park/vue-next";
+import { HamburgerButton, CloseSmall, Right } from "@icon-park/vue-next";
 import MainLeft from "@/views/Main/Left.vue";
 import MainRight from "@/views/Main/Right.vue";
 import Background from "@/components/Background/index.vue";
@@ -41,6 +42,12 @@ const store = mainStore();
 const getWidth = () => {
   store.setInnerWidth(window.innerWidth);
 };
+
+const mobileFunc = () => {
+  // store.mobileOpenState = !store.mobileOpenState
+  store.mobileOpenState = ++store.mobileOpenState % 3
+}
+
 
 onMounted(() => {
   // 自定义鼠标
