@@ -19,10 +19,6 @@ export const mainStore = defineStore("main", {
             playerTitle: null, // 当前播放歌曲名
             playerArtist: null, // 当前播放歌手名
             playerLrc: "歌词加载中", // 当前播放歌词
-            mobileFunc: () => {
-                // store.mobileOpenState = !store.mobileOpenState
-                store.mobileOpenState = ++store.mobileOpenState % 3
-            }
         }
     },
     getters: {

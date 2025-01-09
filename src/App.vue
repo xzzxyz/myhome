@@ -34,7 +34,6 @@ import Footer from "@/components/Footer/index.vue";
 import Box from "@/views/Box/index.vue";
 import MoreSet from "@/views/MoreSet/index.vue";
 import cursorInit from "@/utils/cursor.js";
-import config from "@/../package.json";
 
 const store = mainStore();
 
@@ -43,7 +42,10 @@ const getWidth = () => {
   store.setInnerWidth(window.innerWidth);
 };
 
-
+store.mobileFunc = () => {
+  // store.mobileOpenState = !store.mobileOpenState
+  store.mobileOpenState = ++store.mobileOpenState % 3
+}
 
 
 onMounted(() => {
