@@ -7,16 +7,8 @@
       <span class="title">网站列表</span>
     </div>
     <el-row class="link-all" :gutter="20">
-      <el-col
-        :span="8"
-        v-for="(item, index) in linksData"
-        :key="item"
-        @click="jumpLink(item.link)"
-      >
-        <div
-          class="item cards"
-          :style="index < 3 ? 'margin-bottom: 20px' : null"
-        >
+      <el-col :span="8" v-for="(item, index) in linksData" :key="item" @click="jumpLink(item.link)">
+        <div class="item cards" :style="index > 3 ? 'margin-top: 20px' : null">
           <Icon size="26">
             <component :is="item.icon" />
           </Icon>
@@ -65,20 +57,26 @@ let linksData = [
     name: "起始页",
     link: "https://yuindex.xzzxyz.top",
   },
-  // {
-  //   icon: Home,
-  //   name: "首页",
-  //   link: "https://home.xzzxyz.top",
-  // },
-  // {
-  //   icon: Flask,
-  //   name: "实验室",
-  //   link: "",
-  // },
+  {
+    icon: Home,
+    name: "首页",
+    link: "https://home.xzzxyz.top",
+  },
+  {
+    icon: Flask,
+    name: "实验室",
+    link: "",
+  },
+  {
+    icon: Flask,
+    name: "实验室",
+    link: "",
+  },
 ];
 
 // 链接跳转
 const jumpLink = (url) => {
+  if (!url) return;
   window.open(url, "_blank");
 };
 </script>
@@ -92,12 +90,14 @@ const jumpLink = (url) => {
     align-items: center;
     animation: fade;
     -webkit-animation: fade 0.5s;
+
     .title {
       margin-left: 8px;
       font-size: 1.15rem;
       text-shadow: 0 0 5px #00000050;
     }
   }
+
   .link-all {
     .item {
       height: 100px;
@@ -114,20 +114,25 @@ const jumpLink = (url) => {
         background: rgb(0 0 0 / 40%);
         transition: 0.3s;
       }
+
       .name {
         font-size: 1.1rem;
         margin-left: 8px;
       }
+
       @media (min-width: 720px) and (max-width: 820px) {
         .name {
           display: none;
         }
       }
+
       @media (max-width: 720px) {
         height: 80px;
       }
+
       @media (max-width: 460px) {
         flex-direction: column;
+
         .name {
           font-size: 1rem;
           margin-left: 0;
