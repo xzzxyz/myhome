@@ -5,7 +5,7 @@
       <span>时光胶囊</span>
     </div>
     <template v-for="i in timeDatas">
-      <span class="text">{{ i.s1 }}已经度过了&nbsp;{{ timeData[i.type].elapsed.toFixed(2) }}&nbsp;{{ i.s2 }}</span>
+      <span class="text">{{ i.s1 }}已经度过了&nbsp;{{ timeData[i.type].elapsed || '不到 1' }}&nbsp;{{ i.s2 }}</span>
       <el-progress :text-inside="true" :stroke-width="20" :percentage="parseFloat(timeData[i.type].pass.toFixed(2))" />
     </template>
   </div>

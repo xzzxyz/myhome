@@ -1,7 +1,6 @@
 import { h } from "vue";
 import { SpaCandle } from "@icon-park/vue-next";
 import { dayjs } from 'element-plus'
-console.log('👗:\n', dayjs());
 
 // 时钟
 export const getCurrentTime = () => {
@@ -102,7 +101,7 @@ export const getTimeCapsule = () => {
 
   return {
     day: {
-      elapsed: todayPassHours,
+      elapsed: Math.floor(todayPassHours),
       pass: todayPassHoursPercent,
     },
     week: {
