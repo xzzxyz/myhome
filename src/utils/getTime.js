@@ -184,10 +184,10 @@ export const siteDateStatistics = (startDate) => {
     str += Math.floor(differenceInYears) + " 年 ";
   }
   if (differenceInMonths % 12 >= 1) {
-    str += Math.floor(differenceInMonths % 12) + " 月 ";
+    str += Math.floor(differenceInMonths % 12) + " 个月 ";
   }
   if (differenceInDays % 30 >= 1) {
-    str += Math.floor(differenceInDays % 30) + " 天";
+    str += "又 " + Math.floor(differenceInDays % 30) + " 天";
   }
   return str;
 };
