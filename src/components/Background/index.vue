@@ -3,8 +3,8 @@
     <img class="bg" :src="bgUrl" alt="cover" />
     <div :class="store.backgroundShow ? 'gray sm' : 'gray'" />
     <transition name="el-fade-in-linear">
-      <a class="down" :href="bgUrl" target="_blank">下载壁纸</a>
-      <!-- v-show="store.backgroundShow && store.coverType != '3'" -->
+      <div class="down" @click="downloadBg">下载壁纸</div>
+      <!-- <a class="down" :href="bgUrl" target="_blank" v-show="store.backgroundShow && store.coverType != '3'">下载壁纸</a> -->
     </transition>
   </div>
 </template>
@@ -50,6 +50,19 @@ const changeBg = async (type) => {
   //   bgUrl.value = "https://api.ixiaowai.cn/api/api.php";
   // }
 };
+
+const downloadBg = () => {
+  fetch(bgUrl.value)
+    .then(res => res.blob())
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'background.jpg';
+      a.click();
+      URL.revokeObjectURL(url);
+    })
+}
 
 onMounted(() => {
   // 加载壁纸
@@ -118,7 +131,7 @@ watch(
     font-size: 16px;
     color: white;
     position: absolute;
-    bottom: 30px;
+    bottom: 70px;
     left: 0;
     right: 0;
     margin: 0 auto;
