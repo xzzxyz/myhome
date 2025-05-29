@@ -2,10 +2,10 @@
   <div class="cover">
     <img class="bg" :src="bgUrl" alt="cover" />
     <div :class="store.backgroundShow ? 'gray sm' : 'gray'" />
-    <transition name="el-fade-in-linear">
-      <div class="down" @click="downloadBg">下载壁纸</div>
-      <!-- <a class="down" :href="bgUrl" target="_blank" v-show="store.backgroundShow && store.coverType != '3'">下载壁纸</a> -->
-    </transition>
+    <!-- <transition name="el-fade-in-linear"> -->
+    <div class="down" @click="downloadBg">下载壁纸</div>
+    <!-- <a class="down" :href="bgUrl" target="_blank" v-show="store.backgroundShow && store.coverType != '3'">下载壁纸</a> -->
+    <!-- </transition> -->
   </div>
 </template>
 
