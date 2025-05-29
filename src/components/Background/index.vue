@@ -16,16 +16,38 @@ const store = mainStore();
 
 let bgUrl = ref(null); // 壁纸链接
 const getRandomNumber = n => Math.floor(Math.random() * n) + 1;
-const changeBg = (type) => {
-  if (type == 0) {
-    bgUrl.value = `/images/background${getRandomNumber(16)}.webp`;
-  } else if (type == 1) {
-    bgUrl.value = "https://api.dujin.org/bing/1920.php";
-  } else if (type == 2) {
-    bgUrl.value = "https://api.ixiaowai.cn/gqapi/gqapi.php";
-  } else if (type == 3) {
-    bgUrl.value = "https://api.ixiaowai.cn/api/api.php";
+const changeBg = async (type) => {
+  const isNew = Math.random() < 0.6;
+  const defaultSet = () => {
+    const n = getRandomNumber(17)
+    if (n == 17) {
+      bgUrl.value = "https://api.dujin.org/bing/1920.php";
+    } else {
+      bgUrl.value = `/images/background${n}.webp`
+    }
+  };
+  if (isNew) {
+    defaultSet();
+    return;
   }
+  fetch('https://api.vvhan.com/api/wallpaper/views?type=json')
+    .then(res => res.json())
+    .then(json => {
+      if (json?.success) {
+        bgUrl.value = json.url;
+      } else {
+        defaultSet();
+      }
+    })
+  // if (type == 0) {
+  //   bgUrl.value = `/images/background${getRandomNumber(16)}.webp`;
+  // } else if (type == 1) {
+  //   bgUrl.value = "https://api.dujin.org/bing/1920.php";
+  // } else if (type == 2) {
+  //   bgUrl.value = "https://api.ixiaowai.cn/gqapi/gqapi.php";
+  // } else if (type == 3) {
+  //   bgUrl.value = "https://api.ixiaowai.cn/api/api.php";
+  // }
 };
 
 onMounted(() => {
