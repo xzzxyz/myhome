@@ -1,6 +1,6 @@
 <template>
   <div class="cover">
-    <img class="bg" :src="bgUrl" alt="cover" />
+    <img class="bg" :src="bgUrl" alt="cover" loading="eager" />
     <div :class="store.backgroundShow ? 'gray sm' : 'gray'" />
     <transition name="el-fade-in-linear">
       <div class="down" @click="downloadBg" v-show="store.backgroundShow">下载壁纸</div>
@@ -28,9 +28,10 @@ const changeBg = (type) => {
       url = "http://shanhe.kim/api/wz/bing.php?rand=true";
     }
     fetch(url)
-      .then(data => data.blob())
-      .then(blob => bgUrl.value = URL.createObjectURL(blob))
-      .then(url => URL.revokeObjectURL(url))
+      // .then(data => data.blob())
+      // .then(blob => bgUrl.value = URL.createObjectURL(blob))
+      // .then(url => URL.revokeObjectURL(url))
+      .then(() => bgUrl.value == url)
       .catch(defaultSet)
   }
 
