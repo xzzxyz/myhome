@@ -31,15 +31,23 @@ const changeBg = async (type) => {
     defaultSet();
     return;
   }
-  fetch('https://api.vvhan.com/api/wallpaper/views?type=json')
-    .then(res => res.json())
-    .then(json => {
-      if (json?.success) {
-        bgUrl.value = json.url;
-      } else {
-        defaultSet();
-      }
-    })
+  fetch('https://api.vvhan.com/api/wallpaper/views')
+    .then(url => bgUrl.value = url)
+    .catch(defaultSet)
+
+  // fetch('https://api.vvhan.com/api/wallpaper/views?type=json')
+  //   .then(res => res.json())
+  //   .then(json => {
+  //     if (json?.success) {
+  //       bgUrl.value = json.url;
+  //     } else {
+  //       defaultSet();
+  //     }
+  //   })
+
+
+
+
   // if (type == 0) {
   //   bgUrl.value = `/images/background${getRandomNumber(16)}.webp`;
   // } else if (type == 1) {
