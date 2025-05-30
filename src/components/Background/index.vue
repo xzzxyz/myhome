@@ -30,7 +30,7 @@ const changeBg = (type) => {
     fetch(url)
       .then(data => data.blob())
       .then(blob => bgUrl.value = URL.createObjectURL(blob))
-      .then(() => URL.revokeObjectURL(bgUrl.value))
+      .then(url => URL.revokeObjectURL(url))
       .catch(defaultSet)
   }
 
