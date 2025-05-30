@@ -25,7 +25,7 @@ const changeBg = (type) => {
   } else {
     let url = 'https://api.vvhan.com/api/wallpaper/views'
     if (n === 1) {
-      url = "https://api.dujin.org/bing/1920.php";
+      url = "http://shanhe.kim/api/wz/bing.php?rand=true";
     }
     fetch(url)
       .then(data => data.blob())
