@@ -17,23 +17,24 @@ const store = mainStore();
 
 let bgUrl = ref(null); // 壁纸链接
 const getRandomNumber = n => Math.floor(Math.random() * n) + 1;
-const changeBg = async (type) => {
-  const isNew = Math.random() < 0.6;
-  const defaultSet = () => {
-    const n = getRandomNumber(17)
-    if (n == 17) {
-      bgUrl.value = "https://api.dujin.org/bing/1920.php";
-    } else {
-      bgUrl.value = `/images/background${n}.webp`
+const changeBg = (type) => {
+  const n = getRandomNumber(9)
+  const defaultSet = () => bgUrl.value = `/images/background${n}.webp`
+  if (n > 5) {
+    defaultSet()
+  } else {
+    let url = 'https://api.vvhan.com/api/wallpaper/views'
+    if (n === 1) {
+      url = "https://api.dujin.org/bing/1920.php";
     }
-  };
-  if (isNew) {
-    defaultSet();
-    return;
+    fetch(url)
+      .then(data => data.blob())
+      .then(blob => bgUrl.value = URL.createObjectURL(blob))
+      .catch(defaultSet)
   }
-  fetch('https://api.vvhan.com/api/wallpaper/views')
-    .then(async data => bgUrl.value = URL.createObjectURL(await data.blob()))
-    .catch(defaultSet)
+
+
+
 
   // fetch('https://api.vvhan.com/api/wallpaper/views?type=json')
   //   .then(res => res.json())
