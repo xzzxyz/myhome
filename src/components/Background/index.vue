@@ -32,7 +32,7 @@ const changeBg = async (type) => {
     return;
   }
   fetch('https://api.vvhan.com/api/wallpaper/views')
-    .then(url => bgUrl.value = url)
+    .then(async data => bgUrl.value = URL.createObjectURL(await data.blob()))
     .catch(defaultSet)
 
   // fetch('https://api.vvhan.com/api/wallpaper/views?type=json')
