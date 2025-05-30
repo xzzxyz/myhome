@@ -1,6 +1,6 @@
 <template>
   <div class="cover">
-    <img class="bg" :src="bgUrl" alt="cover" loading="eager" />
+    <img class="bg" :src="bgUrl" alt="cover" />
     <div :class="store.backgroundShow ? 'gray sm' : 'gray'" />
     <transition name="el-fade-in-linear">
       <div class="down" @click="downloadBg" v-show="store.backgroundShow">下载壁纸</div>
