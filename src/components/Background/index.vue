@@ -73,7 +73,7 @@ watch(bgUrl, (value) => {
   if (value) {
     store.bged = true
     if (store.load) {
-      store.setLoadingBoxed();
+      // store.setLoadingBoxed();
     }
   }
 })

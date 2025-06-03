@@ -66,7 +66,7 @@ onMounted(() => {
     console.log("加载完成");
     store.load = true;
     if (store.bged) {
-      store.setLoadingBoxed();
+      // store.setLoadingBoxed();
     }
   });
 
