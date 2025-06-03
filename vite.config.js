@@ -106,7 +106,7 @@ export default ({
     hmr: true,
     proxy: {
       '/bingAPI': {
-        target: 'http://shanhe.kim/api/wz/bing.php?rand=true',
+        target: 'https://shanhe.kim/api/wz/bing.php?rand=true',
         changeOrigin: true,
         // secure: false,
         rewrite: (path) => path.replace(/^\/bingAPI/, '')
