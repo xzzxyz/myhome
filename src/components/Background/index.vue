@@ -15,32 +15,24 @@ import { SuccessPicture } from "@icon-park/vue-next";
 import { mainStore } from "@/store";
 const store = mainStore();
 
-const props = defineProps(['BG'])
 let bgUrl = ref(null); // 壁纸链接
+const getRandomNumber = n => Math.floor(Math.random() * n) + 1;
 const changeBg = (type) => {
-  bgUrl.value = props.BG
-
-
-
-
-
-
-  // const getRandomNumber = n => Math.floor(Math.random() * n) + 1;
-  // const n = getRandomNumber(9)
-  // const defaultSet = () => bgUrl.value = `/images/background${n}.webp`
-  // if (n > 5) {
-  //   defaultSet()
-  // } else {
-  //   let url = 'https://api.vvhan.com/api/wallpaper/views'
-  //   if (n === 1) {
-  //     url = "http://shanhe.kim/api/wz/bing.php?rand=true";
-  //   }
-  //   fetch(url)
-  //     .then(data => data.blob())
-  //     .then(blob => bgUrl.value = URL.createObjectURL(blob))
-  //     .then(url => URL.revokeObjectURL(url))
-  //     .catch(defaultSet)
-  // }
+  const n = getRandomNumber(9)
+  const defaultSet = () => bgUrl.value = `/images/background${n}.webp`
+  if (n > 5) {
+    defaultSet()
+  } else {
+    let url = 'https://api.vvhan.com/api/wallpaper/views'
+    if (n === 1) {
+      url = "http://shanhe.kim/api/wz/bing.php?rand=true";
+    }
+    fetch(url)
+      .then(data => data.blob())
+      .then(blob => bgUrl.value = URL.createObjectURL(blob))
+      .then(url => URL.revokeObjectURL(url))
+      .catch(defaultSet)
+  }
 
 
 
@@ -73,23 +65,37 @@ const downloadBg = () => {
 
 onMounted(() => {
   // 加载壁纸
-  changeBg(store.coverType);
+  // changeBg(store.coverType);
+  changeBg();
 });
 
-// 监听壁纸种类变化
-watch(
-  () => store.coverType,
-  (value) => {
-    changeBg(value);
-    ElMessage({
-      message: "壁纸设置成功",
-      icon: h(SuccessPicture, {
-        theme: "filled",
-        fill: "#efefef",
-      }),
-    });
+watch(bgUrl, (value) => {
+  if (value) {
+    store.bged = true
+    if (store.load) {
+      // 去除加载标记
+      document.getElementsByTagName("body")[0].className = "";
+      // 给加载动画添加结束标记
+      let loadingBox = document.getElementById("loading-box");
+      loadingBox.classList.add("loaded");
+    }
   }
-);
+})
+
+// 监听壁纸种类变化
+// watch(
+//   () => store.coverType,
+//   (value) => {
+//     changeBg(value);
+//     ElMessage({
+//       message: "壁纸设置成功",
+//       icon: h(SuccessPicture, {
+//         theme: "filled",
+//         fill: "#efefef",
+//       }),
+//     });
+//   }
+// );
 </script>
 
 <style lang="scss" scoped>
