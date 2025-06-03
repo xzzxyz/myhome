@@ -73,11 +73,7 @@ watch(bgUrl, (value) => {
   if (value) {
     store.bged = true
     if (store.load) {
-      // 去除加载标记
-      document.getElementsByTagName("body")[0].className = "";
-      // 给加载动画添加结束标记
-      let loadingBox = document.getElementById("loading-box");
-      loadingBox.classList.add("loaded");
+      store.setLoadingBoxed();
     }
   }
 })

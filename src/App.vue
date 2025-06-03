@@ -47,7 +47,13 @@ store.mobileFunc = () => {
   store.mobileOpenState = ++store.mobileOpenState % 3
 }
 
-
+store.setLoadingBoxed = () => {
+  // 去除加载标记
+  document.getElementsByTagName("body")[0].className = "";
+  // 给加载动画添加结束标记
+  let loadingBox = document.getElementById("loading-box");
+  // loadingBox.classList.add("loaded");
+}
 onMounted(() => {
   // 自定义鼠标
   cursorInit();
@@ -60,11 +66,7 @@ onMounted(() => {
     console.log("加载完成");
     store.load = true;
     if (store.bged) {
-      // 去除加载标记
-      document.getElementsByTagName("body")[0].className = "";
-      // 给加载动画添加结束标记
-      let loadingBox = document.getElementById("loading-box");
-      loadingBox.classList.add("loaded");
+      store.setLoadingBoxed();
     }
   });
 
