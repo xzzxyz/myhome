@@ -23,12 +23,8 @@ const changeBg = (type) => {
   if (n > 5) {
     defaultSet()
   } else {
-    let url = 'https://picsum.photos/1920/1080'
-    // let url = 'https://api.vvhan.com/api/wallpaper/views'
-    if (n === 1) {
-      url = 'bingAPI'
-    }
-    fetch(url)
+    // 'https://api.vvhan.com/api/wallpaper/views'
+    fetch('https://picsum.photos/1920/1080')
       .then(data => data.blob())
       .then(blob => bgUrl.value = URL.createObjectURL(blob))
       .then(url => URL.revokeObjectURL(url))

@@ -103,14 +103,7 @@ export default ({
   ],
   server: {
     port: "3000",
-    hmr: true,
-    proxy: {
-      '/bingAPI': {
-        target: 'https://api.dujin.org/bing/1920.php',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/bingAPI/, '')
-      }
-    }
+    hmr: true
   },
   resolve: {
     alias: [{
