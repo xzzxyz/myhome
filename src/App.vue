@@ -1,6 +1,6 @@
 <template>
   <div class="animate">
-    <Background />
+    <Background :BG />
     <main>
       <div class="container" v-show="!store.backgroundShow">
         <section class="main" v-show="!store.setOpenState">
@@ -47,6 +47,30 @@ store.mobileFunc = () => {
   store.mobileOpenState = ++store.mobileOpenState % 3
 }
 
+const BG = ref()
+const setBG = async () => {
+  let bgUrl
+  const getRandomNumber = n => Math.floor(Math.random() * n) + 1;
+  const n = getRandomNumber(9)
+  const defaultSet = () => bgUrl = `/images/background${n}.webp`
+  if (n > 5) {
+    defaultSet()
+  } else {
+    let url = 'https://api.vvhan.com/api/wallpaper/views'
+    if (n === 1) {
+      url = "http://shanhe.kim/api/wz/bing.php?rand=true";
+    }
+    const data = await fetch(url)
+    const blob = await data?.blob()
+    if (blob) {
+      bgUrl = URL.createObjectURL(blob)
+      URL.revokeObjectURL(bgUrl)
+    } else {
+      defaultSet()
+    }
+  }
+  return bgUrl
+}
 
 onMounted(() => {
   // 自定义鼠标
@@ -56,8 +80,9 @@ onMounted(() => {
   // 默哀模式
   checkDays();
   // 加载完成事件
-  window.addEventListener("load", () => {
+  window.addEventListener("load", async () => {
     console.log("加载完成");
+    BG.value = await setBG()
     // 去除加载标记
     document.getElementsByTagName("body")[0].className = "";
     // 给加载动画添加结束标记
