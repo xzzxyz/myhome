@@ -26,7 +26,7 @@ const changeBg = (type) => {
     let url = 'https://picsum.photos/1920/1080'
     // let url = 'https://api.vvhan.com/api/wallpaper/views'
     if (n === 1) {
-      url = 'https://api.dujin.org/bing/1920.php'
+      url = 'bingAPI'
     }
     fetch(url)
       .then(data => data.blob())
