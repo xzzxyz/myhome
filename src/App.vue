@@ -1,6 +1,6 @@
 <template>
   <div class="animate">
-    <Background v-if="BG" :BG="BG" />
+    <Background :myBG />
     <main>
       <div class="container" v-show="!store.backgroundShow">
         <section class="main" v-show="!store.setOpenState">
@@ -47,7 +47,7 @@ store.mobileFunc = () => {
   store.mobileOpenState = ++store.mobileOpenState % 3
 }
 
-const BG = ref('')
+const myBG = ref()
 const setBG = async () => {
   let bgUrl
   const getRandomNumber = n => Math.floor(Math.random() * n) + 1;
@@ -82,7 +82,7 @@ onMounted(() => {
   // 加载完成事件
   window.addEventListener("load", async () => {
     console.log("加载完成");
-    BG.value = await setBG()
+    myBG.value = await setBG()
     // 去除加载标记
     document.getElementsByTagName("body")[0].className = "";
     // 给加载动画添加结束标记
