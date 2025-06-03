@@ -1,6 +1,6 @@
 <template>
   <div class="animate">
-    <Background :myBG />
+    <Background v-if="BG" :BG />
     <main>
       <div class="container" v-show="!store.backgroundShow">
         <section class="main" v-show="!store.setOpenState">
@@ -22,7 +22,7 @@
   </div>
 </template>
 <script setup>
-import { onMounted, onBeforeUnmount, watch } from "vue";
+import { onMounted, onBeforeUnmount, watch, nextTick } from "vue";
 import { helloInit, checkDays } from "@/utils/getTime.js";
 import { mainStore } from "@/store";
 import { Icon } from "@vicons/utils";
@@ -47,7 +47,7 @@ store.mobileFunc = () => {
   store.mobileOpenState = ++store.mobileOpenState % 3
 }
 
-const myBG = ref()
+const BG = ref()
 const setBG = async () => {
   let bgUrl
   const getRandomNumber = n => Math.floor(Math.random() * n) + 1;
@@ -82,7 +82,8 @@ onMounted(() => {
   // 加载完成事件
   window.addEventListener("load", async () => {
     console.log("加载完成");
-    myBG.value = await setBG()
+    BG.value = await setBG()
+    await nextTick()
     // 去除加载标记
     document.getElementsByTagName("body")[0].className = "";
     // 给加载动画添加结束标记

@@ -15,10 +15,10 @@ import { SuccessPicture } from "@icon-park/vue-next";
 import { mainStore } from "@/store";
 const store = mainStore();
 
-const props = defineProps(['myBG'])
+const props = defineProps(['BG'])
 let bgUrl = ref(null); // 壁纸链接
 const changeBg = (type) => {
-  bgUrl.value = props.myBG
+  bgUrl.value = props.BG
 
 
 
