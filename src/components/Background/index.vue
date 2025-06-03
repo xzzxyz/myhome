@@ -23,7 +23,8 @@ const changeBg = (type) => {
   if (n > 5) {
     defaultSet()
   } else {
-    let url = 'https://api.vvhan.com/api/wallpaper/views'
+    let url = 'https://picsum.photos/1920/1080'
+    // let url = 'https://api.vvhan.com/api/wallpaper/views'
     if (n === 1) {
       url = "http://shanhe.kim/api/wz/bing.php?rand=true";
     }
@@ -65,8 +66,18 @@ const downloadBg = () => {
 
 onMounted(() => {
   // 加载壁纸
-  changeBg(store.coverType);
+  // changeBg(store.coverType);
+  changeBg();
 });
+
+watch(bgUrl, (value) => {
+  if (value) {
+    store.bged = true
+    if (store.load) {
+      store.setLoadingBoxed();
+    }
+  }
+})
 
 // 监听壁纸种类变化
 watch(
