@@ -108,7 +108,7 @@ export default ({
       '/bing': {
         target: 'http://shanhe.kim/api/wz/bing.php?rand=true',
         changeOrigin: true,
-        secure: false,
+        // secure: false,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
