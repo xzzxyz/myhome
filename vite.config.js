@@ -46,19 +46,19 @@ export default ({
       },
       workbox: {
         runtimeCaching: [{
-            urlPattern: /(.*?)\.(js|css|woff2|woff|ttf)/, // js / css 静态资源缓存
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'js-css-cache',
-            },
+          urlPattern: /(.*?)\.(js|css|woff2|woff|ttf)/, // js / css 静态资源缓存
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'js-css-cache',
           },
-          {
-            urlPattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/, // 图片缓存
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'image-cache',
-            },
+        },
+        {
+          urlPattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/, // 图片缓存
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'image-cache',
           },
+        },
         ],
       },
       manifest: {
@@ -104,12 +104,20 @@ export default ({
   server: {
     port: "3000",
     hmr: true,
+    proxy: {
+      '/bing': {
+        target: 'http://shanhe.kim/api/wz/bing.php?rand=true',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   },
   resolve: {
     alias: [{
       find: '@',
       replacement: resolve(__dirname, "src"),
-    }, ]
+    },]
   },
   css: {
     preprocessorOptions: {
