@@ -1,6 +1,6 @@
 <template>
   <div class="animate">
-    <Background :BG />
+    <Background v-if="BG" :BG="BG" />
     <main>
       <div class="container" v-show="!store.backgroundShow">
         <section class="main" v-show="!store.setOpenState">
