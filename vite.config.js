@@ -102,15 +102,8 @@ export default ({
     }),
   ],
   server: {
-    // port: "3000",
-    // hmr: true,
-    proxy: {
-      '/bingAPI': {
-        target: 'https://shanhe.kim/api/wz/bing.php?rand=true',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/bingAPI/, '')
-      }
-    }
+    port: "3000",
+    hmr: true
   },
   resolve: {
     alias: [{
