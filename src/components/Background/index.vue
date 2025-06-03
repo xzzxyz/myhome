@@ -25,9 +25,9 @@ const changeBg = (type) => {
   } else {
     let url = 'https://picsum.photos/1920/1080'
     // let url = 'https://api.vvhan.com/api/wallpaper/views'
-    if (n === 1) {
-      url = 'bing'
-    }
+    // if (n === 1) {
+    //   url = 'bing'
+    // }
     fetch(url)
       .then(data => data.blob())
       .then(blob => bgUrl.value = URL.createObjectURL(blob))

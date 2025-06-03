@@ -104,14 +104,14 @@ export default ({
   server: {
     port: "3000",
     hmr: true,
-    proxy: {
-      '/bing': {
-        target: 'http://shanhe.kim/api/wz/bing.php?rand=true',
-        changeOrigin: true,
-        // secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
+    // proxy: {
+    //   '/bing': {
+    //     target: 'http://shanhe.kim/api/wz/bing.php?rand=true',
+    //     changeOrigin: true,
+    //     // secure: false,
+    //     rewrite: (path) => path.replace(/^\/api/, '')
+    //   }
+    // }
   },
   resolve: {
     alias: [{
