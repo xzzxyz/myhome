@@ -102,8 +102,8 @@ export default ({
     }),
   ],
   server: {
-    port: "3000",
-    hmr: true,
+    // port: "3000",
+    // hmr: true,
     proxy: {
       '/bing': {
         target: 'http://shanhe.kim/api/wz/bing.php?rand=true',
