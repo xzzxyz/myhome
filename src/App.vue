@@ -52,7 +52,7 @@ store.setLoadingBoxed = () => {
   document.getElementsByTagName("body")[0].className = "";
   // 给加载动画添加结束标记
   let loadingBox = document.getElementById("loading-box");
-  // loadingBox.classList.add("loaded");
+  loadingBox.classList.add("loaded");
 }
 onMounted(() => {
   // 自定义鼠标
@@ -66,7 +66,7 @@ onMounted(() => {
     console.log("加载完成");
     store.load = true;
     if (store.bged) {
-      // store.setLoadingBoxed();
+      store.setLoadingBoxed();
     }
   });
 
