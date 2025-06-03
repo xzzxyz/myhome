@@ -80,19 +80,19 @@ watch(bgUrl, (value) => {
 })
 
 // 监听壁纸种类变化
-// watch(
-//   () => store.coverType,
-//   (value) => {
-//     changeBg(value);
-//     ElMessage({
-//       message: "壁纸设置成功",
-//       icon: h(SuccessPicture, {
-//         theme: "filled",
-//         fill: "#efefef",
-//       }),
-//     });
-//   }
-// );
+watch(
+  () => store.coverType,
+  (value) => {
+    changeBg(value);
+    ElMessage({
+      message: "壁纸设置成功",
+      icon: h(SuccessPicture, {
+        theme: "filled",
+        fill: "#efefef",
+      }),
+    });
+  }
+);
 </script>
 
 <style lang="scss" scoped>
