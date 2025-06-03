@@ -47,7 +47,7 @@ store.mobileFunc = () => {
   store.mobileOpenState = ++store.mobileOpenState % 3
 }
 
-const BG = ref()
+const BG = ref('')
 const setBG = async () => {
   let bgUrl
   const getRandomNumber = n => Math.floor(Math.random() * n) + 1;
