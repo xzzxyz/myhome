@@ -19,21 +19,14 @@ export const getHitokoto = async () => {
     const cParams = ['c', 'd', 'e', 'h', 'i', 'j', 'k']
     const str = cParams.length ? '/?' + cParams.map(t => 'c=' + t).join('&') : ''
     const url1 = 'https://v1.hitokoto.cn' + str, url2 = 'https://international.v1.hitokoto.cn' + str
+    let res;
     try {
-        return fetch(url1)
-            .then(res => res.json())
+        res = await fetch(url1)
     } catch (error) {
-        return fetch(url2)
-            .then(res => res.json())
+        res = await fetch(url2)
     }
+    return await res.json();
 }
-// export const getHitokoto = async () => {
-//     const cParams = ['c', 'd', 'e', 'h', 'i', 'j', 'k']
-//     const str = cParams.length ? '/?' + cParams.map(t => 'c=' + t).join('&') : ''
-//     const res = await fetch('https://v1.hitokoto.cn' + str)
-//     // const res = await fetch("https://v1.hitokoto.cn");
-//     return await res.json();
-// }
 
 /**
  * 天气
