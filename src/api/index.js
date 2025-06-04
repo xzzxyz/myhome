@@ -16,12 +16,21 @@ export const getPlayerList = async (server, type, id) => {
 
 // 获取一言数据
 export const getHitokoto = async () => {
-    const cParams = ['c', 'd', 'e', 'f', 'g', 'h', 'j', 'k']
+    const cParams = ['c', 'd', 'e', 'h', 'i', 'j', 'k']
     const str = cParams.length ? '/?' + cParams.map(t => 'c=' + t).join('&') : ''
-    const res = await fetch('https://v1.hitokoto.cn' + str)
-    // const res = await fetch("https://v1.hitokoto.cn");
-    return await res.json();
+    const url1 = 'https://v1.hitokoto.cn' + str, url2 = 'https://international.v1.hitokoto.cn' + str
+    return fetch(url1)
+        .then(res => res.json())
+        .catch(() => fetch(url2)
+            .then(res => res.json()))
 }
+// export const getHitokoto = async () => {
+//     const cParams = ['c', 'd', 'e', 'h', 'i', 'j', 'k']
+//     const str = cParams.length ? '/?' + cParams.map(t => 'c=' + t).join('&') : ''
+//     const res = await fetch('https://v1.hitokoto.cn' + str)
+//     // const res = await fetch("https://v1.hitokoto.cn");
+//     return await res.json();
+// }
 
 /**
  * 天气
