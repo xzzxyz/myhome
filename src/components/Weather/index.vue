@@ -1,9 +1,6 @@
 <template>
-  <div
-    class="weather"
-    v-if="weatherData.adCode.city && weatherData.weather.weather"
-  >
-    <span>{{ weatherData.weather.city }}&nbsp;</span>
+  <div class="weather" v-if="weatherData.adCode.city && weatherData.weather.weather">
+    <span>{{ weatherData.adCode.city }}&nbsp;</span>
     <span>{{ weatherData.weather.weather }}&nbsp;</span>
     <span>{{ weatherData.weather.temperature }}℃</span>
     <span class="sm-hidden">&nbsp;{{ weatherData.weather.winddirection }}风&nbsp;</span>
@@ -40,12 +37,14 @@ let weatherData = reactive({
 const getWeatherData = () => {
   // 获取地理位置信息
   if (!mainKey) return onError("请配置天气 Key");
-  getAdcode(mainKey)
+  getAdcode()
+    // getAdcode(mainKey)
     .then((res) => {
-      if (res.status) {
+      if (res.code === 200) {
         weatherData.adCode = {
-          city: res.city,
-          adcode: res.adcode,
+          city: res.ipdata.info3 || res.ipdata.info2 || res.ipdata.info1,
+          adcode: res.adcode.a,
+          ip:  res.ipinfo.text,
         };
         // 获取天气信息
         getWeather(mainKey, weatherData.adCode.adcode)
