@@ -24,11 +24,18 @@ const changeBg = (type) => {
     defaultSet()
   } else {
     fetch('https://api.vvhan.com/api/wallpaper/views')
-      // fetch('https://picsum.photos/1920/1080')
       .then(data => data.blob())
       .then(blob => bgUrl.value = URL.createObjectURL(blob))
       .then(url => URL.revokeObjectURL(url))
-      .catch(defaultSet)
+      .catch(() => {
+        fetch('https://picsum.photos/1920/1080')
+          .then(data => data.blob())
+          .then(blob => bgUrl.value = URL.createObjectURL(blob))
+          .then(url => URL.revokeObjectURL(url))
+          .catch(defaultSet)
+      })
+
+
   }
 
 
