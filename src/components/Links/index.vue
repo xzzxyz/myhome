@@ -40,7 +40,7 @@ import {
 let linksData = [
   {
     icon: Cloud,
-    name: "网盘",
+    name: "网盘/NAS",
     link: "http://101.5.88.161:5244/",
     notMaintained: false,
   },
@@ -74,6 +74,11 @@ let linksData = [
     link: "https://yuindex.xzzxyz.top",
     notMaintained: true,
   },
+  // {
+  //   icon: Flask,
+  //   name: "实验室",
+  //   link: "",
+  // },
 ];
 
 // 处理点击事件
@@ -141,12 +146,16 @@ const jumpLink = (url) => {
         }
 
         &.not-maintained {
-          opacity: 0.6;
-          filter: grayscale(50%);
+          opacity: 0.5;
           
           &:hover {
-            opacity: 0.8;
-            filter: grayscale(30%);
+            opacity: 0.7;
+          }
+          
+          .name {
+            text-decoration: line-through;
+            text-decoration-thickness: 3px;
+            text-decoration-color: currentColor;
           }
         }
 
