@@ -182,14 +182,39 @@ function getAdcodeFromCity(city) {
     return cityMap[city];
 }
 
+// 将心知天气编码转换为高德编码
+function convertToGaodeCity(cityCode) {
+    const gaodeCityMap = {
+        '101010100': '110000', // 北京
+        '101020100': '310000', // 上海
+        '101280101': '440100', // 广州
+        '101280601': '440300', // 深圳
+        '101210101': '330100', // 杭州
+        '101190101': '320100', // 南京
+        '101270101': '510100', // 成都
+        '101040100': '500000', // 重庆
+        '101200101': '420100', // 武汉
+        '101110101': '610100', // 西安
+        '101030100': '120000', // 天津
+        '101190401': '320500', // 苏州
+    };
+    return gaodeCityMap[cityCode] || '110000'; // 默认北京
+}
+
 // 获取天气信息
 export const getWeather = async (key, city) => {
     try {
+        // 将心知天气编码转换为高德编码
+        const gaodeCity = convertToGaodeCity(city);
+        
         // 尝试多个天气API
         const apis = [
-            `http://t.weather.itboy.net/api/weather/city/${city}`,
-            `https://restapi.amap.com/v3/weather/weatherInfo?key=${key}&city=${city}`,
+            // 高德API（支持跨域）
+            `https://restapi.amap.com/v3/weather/weatherInfo?key=${key}&city=${gaodeCity}`,
+            // CORS 代理（备用）
+            `https://api.allorigins.win/get?url=${encodeURIComponent(`http://t.weather.itboy.net/api/weather/city/${city}`)}`,
         ];
+        console.log('👨‍🔬', apis)
 
         for (const api of apis) {
             try {
@@ -231,7 +256,29 @@ export const getWeather = async (key, city) => {
 
 // 转换天气数据格式以兼容旧代码
 function convertWeatherData(data) {
-    // t.weather.itboy.net 格式
+    // allorigins.win 包装格式
+    if (data.contents) {
+        try {
+            const wrappedData = JSON.parse(data.contents);
+            // t.weather.itboy.net 格式
+            if (wrappedData.status === 200 && wrappedData.data) {
+                const forecast = wrappedData.data.forecast[0] || {};
+                return {
+                    status: true,
+                    lives: [{
+                        weather: forecast.type || '未知',
+                        temperature: wrappedData.data.wendu || '0',
+                        winddirection: forecast.fx || '未知',
+                        windpower: forecast.fl || '0',
+                    }],
+                };
+            }
+        } catch (e) {
+            console.log('解析 allorigins.win 响应失败:', e);
+        }
+    }
+
+    // t.weather.itboy.net 格式 (直接访问)
     if (data.status === 200 && data.data) {
         const forecast = data.data.forecast[0] || {};
         return {
