@@ -7,8 +7,8 @@
       <span class="title">网站列表</span>
     </div>
     <el-row class="link-all" :gutter="20">
-      <el-col :span="8" v-for="(item, index) in linksData" :key="item" @click="jumpLink(item.link)">
-        <div class="item cards" :style="index > 2 ? 'margin-top: 20px' : null">
+      <el-col :span="8" v-for="(item, index) in linksData" :key="item" @click="handleClick(item)">
+        <div class="item cards" :class="{ 'not-maintained': item.notMaintained }" :style="index > 2 ? 'margin-top: 20px' : null">
           <Icon size="26">
             <component :is="item.icon" />
           </Icon>
@@ -22,6 +22,7 @@
 <script setup>
 import { ref } from "vue";
 import { Icon } from "@vicons/utils";
+import { ElMessageBox } from "element-plus";
 import {
   Link,
   Blog,
@@ -40,34 +41,63 @@ let linksData = [
   {
     icon: Cloud,
     name: "网盘",
-    link: "https://xzzxyz.top",
-  },
-  {
-    icon: Robot,
-    name: "ChatGPT",
-    link: "http://chat.xzzxyz.top",
-  },
-  {
-    icon: Bookmark,
-    name: "书签",
-    link: "https://pintree.xzzxyz.top",
-  },
-  {
-    icon: Compass,
-    name: "起始页",
-    link: "https://yuindex.xzzxyz.top",
+    link: "http://101.5.88.161:5244/",
+    notMaintained: false,
   },
   {
     icon: Home,
     name: "首页",
     link: "https://home.xzzxyz.top",
+    notMaintained: false,
   },
   {
-    icon: Flask,
-    name: "实验室",
-    link: "",
+    icon: Bookmark,
+    name: "书签",
+    link: "https://bookmark.xzzxyz.top/",
+    notMaintained: false,
+  },
+  {
+    icon: Robot,
+    name: "ChatGPT",
+    link: "http://chat.xzzxyz.top",
+    notMaintained: true,
+  },
+  {
+    icon: Bookmark,
+    name: "书签(旧)",
+    link: "https://pintree.xzzxyz.top",
+    notMaintained: true,
+  },
+  {
+    icon: Compass,
+    name: "起始页",
+    link: "https://yuindex.xzzxyz.top",
+    notMaintained: true,
   },
 ];
+
+// 处理点击事件
+const handleClick = (item) => {
+  if (item.notMaintained) {
+    ElMessageBox.confirm(
+      `该链接 (${item.name}) 已不再维护，是否继续访问？`,
+      '提示',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+    )
+      .then(() => {
+        jumpLink(item.link);
+      })
+      .catch(() => {
+        // 用户取消，不执行任何操作
+      });
+  } else {
+    jumpLink(item.link);
+  }
+};
 
 // 链接跳转
 const jumpLink = (url) => {
@@ -94,21 +124,31 @@ const jumpLink = (url) => {
   }
 
   .link-all {
-    .item {
-      height: 100px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      justify-content: center;
-      animation: fade;
-      -webkit-animation: fade 0.5s;
+      .item {
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+        animation: fade;
+        -webkit-animation: fade 0.5s;
 
-      &:hover {
-        transform: scale(1.02);
-        background: rgb(0 0 0 / 40%);
-        transition: 0.3s;
-      }
+        &:hover {
+          transform: scale(1.02);
+          background: rgb(0 0 0 / 40%);
+          transition: 0.3s;
+        }
+
+        &.not-maintained {
+          opacity: 0.6;
+          filter: grayscale(50%);
+          
+          &:hover {
+            opacity: 0.8;
+            filter: grayscale(30%);
+          }
+        }
 
       .name {
         font-size: 1.1rem;
