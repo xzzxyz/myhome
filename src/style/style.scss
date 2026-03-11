@@ -90,6 +90,49 @@ p {
     }
 }
 
+// MessageBox 弹窗样式
+.el-message-box {
+    --el-messagebox-title-color: #efefef;
+    --el-messagebox-content-color: #efefef;
+    background: #00000040 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    .el-message-box__header {
+        .el-message-box__title {
+            color: #efefef;
+        }
+    }
+    
+    .el-message-box__content {
+        color: #efefef;
+    }
+    
+    .el-message-box__btns {
+        .el-button--primary {
+            background: #ffffff30 !important;
+            border: none !important;
+            color: #efefef !important;
+            
+            &:hover {
+                background: #ffffff50 !important;
+            }
+        }
+        
+        .el-button {
+            background: #ffffff20 !important;
+            border: none !important;
+            color: #efefef !important;
+            
+            &:hover {
+                background: #ffffff40 !important;
+            }
+        }
+    }
+}
+
 // 进度条样式
 .el-progress-bar {
     .el-progress-bar__outer {
