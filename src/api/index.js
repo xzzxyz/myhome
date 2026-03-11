@@ -42,7 +42,7 @@ export const getAdcode = async (key) => {
             'http://ip-api.com/json/?lang=zh-CN',
             'https://api.vore.top/api/IPdata',
         ];
-        
+
         for (const api of apis) {
             try {
                 const response = await fetch(api);
@@ -56,7 +56,7 @@ export const getAdcode = async (key) => {
                 continue;
             }
         }
-        
+
         // 如果所有API都失败，返回默认数据
         return {
             code: 200,
@@ -110,7 +110,7 @@ function convertIpData(data) {
             },
         };
     }
-    
+
     // ipapi.co 格式
     if (data.city && data.country_code) {
         return {
@@ -128,12 +128,12 @@ function convertIpData(data) {
             },
         };
     }
-    
+
     // api.vore.top 格式（旧格式）
     if (data.code === 200 && data.ipdata) {
         return data;
     }
-    
+
     // 默认格式
     return {
         code: 200,
@@ -190,7 +190,7 @@ export const getWeather = async (key, city) => {
             `http://t.weather.itboy.net/api/weather/city/${city}`,
             `https://restapi.amap.com/v3/weather/weatherInfo?key=${key}&city=${city}`,
         ];
-        
+
         for (const api of apis) {
             try {
                 const response = await fetch(api);
@@ -204,7 +204,7 @@ export const getWeather = async (key, city) => {
                 continue;
             }
         }
-        
+
         // 如果所有API都失败，返回默认数据
         return {
             status: false,
@@ -244,7 +244,7 @@ function convertWeatherData(data) {
             }],
         };
     }
-    
+
     // 高德API格式
     if (data.status === '1' && data.lives) {
         return {
@@ -252,7 +252,7 @@ function convertWeatherData(data) {
             lives: data.lives,
         };
     }
-    
+
     // 默认格式
     return {
         status: false,
