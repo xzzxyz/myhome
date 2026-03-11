@@ -22,7 +22,7 @@
 <script setup>
 import { ref } from "vue";
 import { Icon } from "@vicons/utils";
-import { ElMessageBox } from "element-plus";
+import { MessageBox } from "element-plus";
 import {
   Link,
   Blog,
@@ -84,7 +84,7 @@ let linksData = [
 // 处理点击事件
 const handleClick = (item) => {
   if (item.notMaintained) {
-    ElMessageBox.confirm(
+    MessageBox.confirm(
       `该链接 (${item.name}) 已不再维护，是否继续访问？`,
       '提示',
       {
