@@ -18,7 +18,7 @@ const store = mainStore();
 let bgUrl = ref(null); // 壁纸链接
 const getRandomNumber = n => Math.floor(Math.random() * n) + 1;
 const changeBg = (type) => {
-  const n = getRandomNumber(9)
+  const n = getRandomNumber(16)
   const defaultSet = () => bgUrl.value = `/images/background${n}.webp`
   if (n > 5) {
     defaultSet()
@@ -30,14 +30,14 @@ const changeBg = (type) => {
       'https://api.dujin.org/pic/fengjing',          // 缙哥哥风景API
       'https://picsum.photos/1920/1080',             // Picsum随机图片
     ]
-    
+
     // 递归尝试API列表
     const tryApi = (index) => {
       if (index >= apis.length) {
         defaultSet()
         return
       }
-      
+
       fetch(apis[index])
         .then(response => {
           if (!response.ok) throw new Error('API请求失败')
@@ -52,20 +52,9 @@ const changeBg = (type) => {
           tryApi(index + 1)
         })
     }
-    
+
     tryApi(0)
   }
-}
-
-  // if (type == 0) {
-  //   bgUrl.value = `/images/background${getRandomNumber(16)}.webp`;
-  // } else if (type == 1) {
-  //   bgUrl.value = "https://api.dujin.org/bing/1920.php";
-  // } else if (type == 2) {
-  //   bgUrl.value = "https://api.ixiaowai.cn/gqapi/gqapi.php";
-  // } else if (type == 3) {
-  //   bgUrl.value = "https://api.ixiaowai.cn/api/api.php";
-  // }
 };
 
 const downloadBg = () => {
