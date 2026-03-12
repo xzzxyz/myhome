@@ -23,9 +23,33 @@ const changeBg = (type) => {
   if (n > 5) {
     defaultSet()
   } else {
-    // 使用 loremflickr 支持 CORS 的随机风景图片
-    const random = Math.floor(Math.random() * 10000)
-    bgUrl.value = `https://loremflickr.com/1920/1080/landscape?random=${random}`
+    // 尝试多个随机图片API
+    const apis = [
+      `https://loremflickr.com/1920/1080/landscape?random=${Math.floor(Math.random() * 10000)}`,
+      `https://picsum.photos/1920/1080?random=${Math.floor(Math.random() * 1000)}`,
+    ]
+
+    const tryApi = (index) => {
+      if (index >= apis.length) {
+        defaultSet()
+        return
+      }
+
+      fetch(apis[index])
+        .then(response => {
+          if (!response.ok) throw new Error('API请求失败')
+          return response.blob()
+        })
+        .then(blob => {
+          bgUrl.value = URL.createObjectURL(blob)
+        })
+        .catch(() => {
+          console.log(`API ${apis[index]} 失败，尝试下一个...`)
+          tryApi(index + 1)
+        })
+    }
+
+    tryApi(0)
   }
 };
 
