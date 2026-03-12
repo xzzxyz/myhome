@@ -146,7 +146,7 @@ const jumpLink = (url) => {
         }
 
         &.not-maintained {
-          opacity: 0.5;
+          opacity: 0.6;
           
           &:hover {
             opacity: 0.7;

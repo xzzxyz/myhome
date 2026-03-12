@@ -214,7 +214,6 @@ export const getWeather = async (key, city) => {
             // CORS 代理（备用）
             `https://api.allorigins.win/get?url=${encodeURIComponent(`http://t.weather.itboy.net/api/weather/city/${city}`)}`,
         ];
-        console.log('👨‍🔬', apis)
 
         for (const api of apis) {
             try {

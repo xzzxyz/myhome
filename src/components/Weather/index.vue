@@ -32,7 +32,6 @@ let weatherData = reactive({
     windpower: null, // 风力级别
   },
 });
-console.log('🧞‍♀️', weatherData)
 // 获取天气数据
 const getWeatherData = () => {
   // 获取地理位置信息
@@ -40,7 +39,6 @@ const getWeatherData = () => {
   getAdcode()
     // getAdcode(mainKey)
     .then((res) => {
-      console.log('🙇‍♀️', res)
       if (res.code === 200) {
         weatherData.adCode = {
           city: res.ipdata.info3 || res.ipdata.info2 || res.ipdata.info1,
