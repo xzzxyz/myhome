@@ -23,37 +23,9 @@ const changeBg = (type) => {
   if (n > 5) {
     defaultSet()
   } else {
-    // 尝试多个风景图片API，按优先级顺序
-    const apis = [
-      'https://api.fuchenboke.cn/api/fengjing.php', // 浮沉API - 高清风景壁纸
-      'https://tu.ltyuanfang.cn/api/fengjing.php',   // 远方随机风景壁纸
-      'https://api.dujin.org/pic/fengjing',          // 缙哥哥风景API
-      'https://picsum.photos/1920/1080',             // Picsum随机图片
-    ]
-
-    // 递归尝试API列表
-    const tryApi = (index) => {
-      if (index >= apis.length) {
-        defaultSet()
-        return
-      }
-
-      fetch(apis[index])
-        .then(response => {
-          if (!response.ok) throw new Error('API请求失败')
-          return response.blob()
-        })
-        .then(blob => {
-          const url = URL.createObjectURL(blob)
-          bgUrl.value = url
-        })
-        .catch(() => {
-          console.log(`API ${apis[index]} 失败，尝试下一个...`)
-          tryApi(index + 1)
-        })
-    }
-
-    tryApi(0)
+    // 使用 loremflickr 支持 CORS 的随机风景图片
+    const random = Math.floor(Math.random() * 10000)
+    bgUrl.value = `https://loremflickr.com/1920/1080/landscape?random=${random}`
   }
 };
 
