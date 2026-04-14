@@ -32,9 +32,9 @@
 ### 部署
 
 ```bash
-yarn install
-yarn dev
-yarn build
+npm install
+npm run dev
+npm run build
 ```
 > 构建完成后，可将 `dist` 文件夹下的文件上传至服务器，也可使用 `Vercel` 等托管平台一键导入并自动部署
 ### 天气
@@ -55,7 +55,7 @@ yarn build
 
 ```bash
 # 歌曲 API 地址
-VITE_SONG_API = "https://api-meting.imsyy.top"
+VITE_SONG_API = "https://api.injahow.cn/meting/"
 # 歌曲服务器 ( netease-网易云, tencent-qq音乐 )
 VITE_SONG_SERVER = "netease"
 # 播放类型 ( song-歌曲, playlist-播放列表, album-专辑, search-搜索, artist-艺术家 )
@@ -118,7 +118,7 @@ make clean all
 
 ### API
 
-* [MetingAPI By 武恩赐](https://api.wuenci.com/meting/api/)
+* [MetingAPI By injahow](https://api.injahow.cn/meting/)
 * [小歪 API](https://api.ixiaowai.cn/)
 * [高德开放平台](https://lbs.amap.com/)
 * [Hitokoto 一言](https://hitokoto.cn/)

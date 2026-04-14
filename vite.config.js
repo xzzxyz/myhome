@@ -14,6 +14,7 @@ import {
 import {
   resolve
 } from 'path';
+import fs from 'fs';
 import {
   VitePWA
 } from 'vite-plugin-pwa';
@@ -21,7 +22,19 @@ import {
 // https://vitejs.dev/config/
 export default ({
   mode
-}) => defineConfig({
+}) => {
+  const publicImagesDir = resolve(__dirname, 'public/images');
+  const localBackgrounds = fs
+    .readdirSync(publicImagesDir)
+    .filter((file) => /^background\d+\.[^.]+$/.test(file))
+    .sort((a, b) => {
+      const aNum = Number(a.match(/background(\d+)/)?.[1] || 0);
+      const bNum = Number(b.match(/background(\d+)/)?.[1] || 0);
+      return aNum - bNum;
+    })
+    .map((file) => `/images/${file}`);
+
+  return defineConfig({
   plugins: [
     vue(),
     AutoImport({
@@ -111,6 +124,9 @@ export default ({
       replacement: resolve(__dirname, "src"),
     },]
   },
+  define: {
+    __LOCAL_BACKGROUNDS__: JSON.stringify(localBackgrounds),
+  },
   css: {
     preprocessorOptions: {
       scss: {
@@ -129,3 +145,4 @@ export default ({
     },
   },
 })
+}

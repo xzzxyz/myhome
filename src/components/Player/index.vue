@@ -109,18 +109,21 @@ onMounted(() => {
   nextTick(() => {
     getPlayerList(props.songServer, props.songType, props.songId)
       .then((res) => {
+        if (!Array.isArray(res) || res.length === 0) {
+          throw new Error("播放列表为空");
+        }
         // 生成歌单信息
         playIndex.value = Math.floor(Math.random() * res.length);
         playListCount.value = res.length;
         // 更改播放器加载状态
         store.musicIsOk = true;
-        console.log(
-          "音乐加载完成",
-          res,
-          playIndex.value,
-          playListCount.value,
-          props.volume
-        );
+        // console.log(
+        //   "音乐加载完成",
+        //   res,
+        //   playIndex.value,
+        //   playListCount.value,
+        //   props.volume
+        // );
         // 生成歌单
         res.forEach((v) => {
           playList.value.push({

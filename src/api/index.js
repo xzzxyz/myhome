@@ -6,8 +6,21 @@
 
 // 获取音乐播放列表
 export const getPlayerList = async (server, type, id) => {
-    const res = await fetch(`${import.meta.env.VITE_SONG_API}/?server=${server}&type=${type}&id=${id}`);
-    return await res.json();
+    const baseUrl = import.meta.env.VITE_SONG_API.replace(/\/+$/, '');
+    const res = await fetch(`${baseUrl}/?server=${server}&type=${type}&id=${id}`);
+    const data = await res.json();
+    if (!Array.isArray(data)) return [];
+    return data.map((item) => ({
+        ...item,
+        url: normalizeMetingAssetUrl(item.url),
+        pic: normalizeMetingAssetUrl(item.pic),
+        lrc: normalizeMetingAssetUrl(item.lrc),
+    }));
+}
+
+function normalizeMetingAssetUrl(url) {
+    if (!url || typeof url !== 'string') return url;
+    return url.replace('https://api.injahow.cn/meting//?', 'https://api.injahow.cn/meting/?');
 }
 
 /**
@@ -37,9 +50,12 @@ export const getHitokoto = async () => {
 export const getAdcode = async (key) => {
     try {
         // 尝试多个IP定位API
+        // 保留多个 HTTPS 回退源以提高可用性。
+        // 旧的 http://ip-api.com/json/?lang=zh-CN 为 HTTP-only，
+        // 在 HTTPS 页面中会有 mixed-content 风险，因此不在浏览器端恢复。
         const apis = [
+            'https://ipwho.is/',
             'https://ipapi.co/json/',
-            'http://ip-api.com/json/?lang=zh-CN',
             'https://api.vore.top/api/IPdata',
         ];
 
@@ -93,6 +109,25 @@ export const getAdcode = async (key) => {
 
 // 转换IP定位数据格式以兼容旧代码
 function convertIpData(data) {
+    // ipwho.is 格式
+    if (data.success && data.city) {
+        const cityName = normalizeCityName(data.city, data.region, data.capital);
+        return {
+            code: 200,
+            ipdata: {
+                info1: data.country,
+                info2: data.region,
+                info3: cityName,
+            },
+            adcode: {
+                a: getAdcodeFromCity(cityName) || '101010100',
+            },
+            ipinfo: {
+                text: data.ip || 'unknown',
+            },
+        };
+    }
+
     // ip-api.com 格式
     if (data.status === 'success' && data.city) {
         return {
@@ -113,25 +148,21 @@ function convertIpData(data) {
 
     // ipapi.co 格式
     if (data.city && data.country_code) {
+        const cityName = normalizeCityName(data.city, data.region, data.country_capital);
         return {
             code: 200,
             ipdata: {
                 info1: data.country_name,
                 info2: data.region,
-                info3: data.city,
+                info3: cityName,
             },
             adcode: {
-                a: getAdcodeFromCity(data.city) || '101010100',
+                a: getAdcodeFromCity(cityName) || '101010100',
             },
             ipinfo: {
                 text: data.ip || 'unknown',
             },
         };
-    }
-
-    // api.vore.top 格式（旧格式）
-    if (data.code === 200 && data.ipdata) {
-        return data;
     }
 
     // 默认格式
@@ -206,27 +237,10 @@ export const getWeather = async (key, city) => {
     try {
         // 将心知天气编码转换为高德编码
         const gaodeCity = convertToGaodeCity(city);
-        
-        // 尝试多个天气API
-        const apis = [
-            // 高德API（支持跨域）
-            `https://restapi.amap.com/v3/weather/weatherInfo?key=${key}&city=${gaodeCity}`,
-            // CORS 代理（备用）
-            `https://api.allorigins.win/get?url=${encodeURIComponent(`http://t.weather.itboy.net/api/weather/city/${city}`)}`,
-        ];
-
-        for (const api of apis) {
-            try {
-                const response = await fetch(api);
-                if (response.ok) {
-                    const data = await response.json();
-                    // 转换数据格式以兼容旧代码
-                    return convertWeatherData(data);
-                }
-            } catch (error) {
-                console.log(`天气API ${api} 失败，尝试下一个...`);
-                continue;
-            }
+        const response = await fetch(`https://restapi.amap.com/v3/weather/weatherInfo?key=${key}&city=${gaodeCity}`);
+        if (response.ok) {
+            const data = await response.json();
+            return convertWeatherData(data);
         }
 
         // 如果所有API都失败，返回默认数据
@@ -255,44 +269,8 @@ export const getWeather = async (key, city) => {
 
 // 转换天气数据格式以兼容旧代码
 function convertWeatherData(data) {
-    // allorigins.win 包装格式
-    if (data.contents) {
-        try {
-            const wrappedData = JSON.parse(data.contents);
-            // t.weather.itboy.net 格式
-            if (wrappedData.status === 200 && wrappedData.data) {
-                const forecast = wrappedData.data.forecast[0] || {};
-                return {
-                    status: true,
-                    lives: [{
-                        weather: forecast.type || '未知',
-                        temperature: wrappedData.data.wendu || '0',
-                        winddirection: forecast.fx || '未知',
-                        windpower: forecast.fl || '0',
-                    }],
-                };
-            }
-        } catch (e) {
-            console.log('解析 allorigins.win 响应失败:', e);
-        }
-    }
-
-    // t.weather.itboy.net 格式 (直接访问)
-    if (data.status === 200 && data.data) {
-        const forecast = data.data.forecast[0] || {};
-        return {
-            status: true,
-            lives: [{
-                weather: forecast.type || '未知',
-                temperature: data.data.wendu || '0',
-                winddirection: forecast.fx || '未知',
-                windpower: forecast.fl || '0',
-            }],
-        };
-    }
-
     // 高德API格式
-    if (data.status === '1' && data.lives) {
+    if (data.status === '1' && Array.isArray(data.lives) && data.lives.length > 0) {
         return {
             status: true,
             lives: data.lives,
@@ -309,4 +287,9 @@ function convertWeatherData(data) {
             windpower: '0',
         }],
     };
+}
+
+function normalizeCityName(city, region, capital) {
+    const candidates = [city, region, capital].filter(Boolean);
+    return candidates.find((name) => getAdcodeFromCity(name)) || city || region || capital || 'Beijing';
 }

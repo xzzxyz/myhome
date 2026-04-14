@@ -48,9 +48,9 @@ const getWeatherData = () => {
         // 获取天气信息
         getWeather(mainKey, weatherData.adCode.adcode)
           .then((res) => {
-            if (res.status) {
+            if (res.status && res.lives?.[0]) {
               weatherData.weather = {
-                city: res.lives[0].city,
+                city: res.lives[0].city || weatherData.adCode.city,
                 weather: res.lives[0].weather,
                 temperature: res.lives[0].temperature,
                 winddirection: res.lives[0].winddirection,
